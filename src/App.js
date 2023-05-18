@@ -1,4 +1,4 @@
-import AllRoutes from './AllRoutes';
+import AllRoutes from './routes';
 import './App.css';
 
 
@@ -6,7 +6,6 @@ function App() {
   return (
     <>
     <AllRoutes/>
-   
     </>
   );
 }
