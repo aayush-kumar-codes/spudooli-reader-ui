@@ -3,7 +3,7 @@ import React from "react";
 const About = () => {
   return (
     <>
-      <div className="m-auto justify-center p-2">
+      <div className="m-auto justify-center p-2 w-10/12">
         <h1 className="text-lg">About Spudooli Reader</h1>
         <p className="">
           I was a long time fan of Google Reader. When it bit the dust I

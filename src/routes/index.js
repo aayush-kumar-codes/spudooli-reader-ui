@@ -10,6 +10,7 @@ import OnBoardingLayout from "../layouts/onBoardingLayout";
 import { ACCESS_TOKEN_KEY } from "../services/constant";
 import { PrivatePage } from "./PrivatePage";
 import Read from "../Pages/Read";
+import ReadLayout from "../layouts/ReadLayout";
 
 export const AuthContext = createContext()
 
@@ -33,7 +34,9 @@ function AllRoutes() {
             <Route path="about" element={<About />} />
             <Route path="readingpage" element={<Readingpage />} />
             <Route path="feed-admin" element={<PrivatePage><FeedAdmin /></PrivatePage>} />
-            <Route path="read" element={<PrivatePage><Read /></PrivatePage>} />
+            <Route path="read" element={<PrivatePage><ReadLayout /></PrivatePage>}>
+            <Route index element={<Read />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

@@ -20,7 +20,7 @@ function Login() {
       .post(`${endPoints.AUTH_LOGIN}`, { username, password})
       .then((res) => res.data)
       .then((data) => {
-        localStorage.setItem(ACCESS_TOKEN_KEY, data.details.access_token);
+        localStorage.setItem(ACCESS_TOKEN_KEY, data.details?.access_token);
         auth.setIsLogin(true)
         navigate('/feed-admin')
         setLoading(false)
@@ -37,7 +37,7 @@ function Login() {
 
   return (
     <>
-      <div className="flex flex-col justify-center overflow-hidden mt-24">
+      <div className="flex flex-col justify-center overflow-hidden w-10/12 m-auto mt-24">
         <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
           <h1 className="text-3xl font-semibold text-center text-sky-700">
             Sign in
@@ -48,7 +48,7 @@ function Login() {
                 for="email"
                 className="block text-md font-semibold text-sky-700"
               >
-                Email
+                User Name
               </label>
               <input
                 value={username}

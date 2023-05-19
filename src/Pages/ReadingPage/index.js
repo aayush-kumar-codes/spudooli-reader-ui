@@ -13,7 +13,7 @@ const ReadingPage = () => {
   
   return (
     <>
-      <div>
+      <div className="w-10/12 m-auto">
         <h1 className="text-4xl">My Reading List</h1>
         <p>
           This is what <a className="text-sky-700 border-b border-sky-700" href="https://www.spudooli.com/">I'm</a> currently
