@@ -5,34 +5,56 @@ import { api } from "../../services/api";
 import { ACCESS_TOKEN_KEY } from "../../services/constant";
 import { AuthContext } from "../../routes";
 import { useNavigate } from "react-router-dom";
+import TextInput from "../../component/TextInput";
 
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading , setLoading] = useState(false)
+  const [errors, setErrors] = useState({});
+  const [isLoading, setLoading] = useState(false)
   const auth = useContext(AuthContext)
   const navigate = useNavigate()
 
-  const login = () =>{
+  const login = () => {
     setLoading(true)
+    setErrors({})
+    let errors = {}
+
+    if (!username) {
+      errors["username"] = "username is required";
+    }
+    if (!password) {
+      errors["password"] = "password is required";
+    }
+
+
+    setErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      setLoading(false)
+      return;
+    }
     return api
-      .post(`${endPoints.AUTH_LOGIN}`, { username, password})
+      .post(`${endPoints.AUTH_LOGIN}`, { username, password })
       .then((res) => res.data)
       .then((data) => {
-        localStorage.setItem(ACCESS_TOKEN_KEY, data.details?.access_token);
-        auth.setIsLogin(true)
-        navigate('/feed-admin')
-        setLoading(false)
-        return data;
+        if (data.details?.access_token) {
+          localStorage.setItem(ACCESS_TOKEN_KEY, data.details?.access_token);
+          auth.setIsLogin(true)
+          navigate('/feed-admin')
+          setLoading(false)
+          return data;
+        }
+        if (data.error) {
+          alert(data.message)
+          setLoading(false)
+        }
       })
       .catch((error) => {
+        setLoading(false)
         throw error;
       });
   };
-
-
-
 
 
   return (
@@ -44,32 +66,27 @@ function Login() {
           </h1>
           <form onSubmit={e => e.preventDefault()}>
             <div className="mb-2">
-              <label
-                for="email"
-                className="block text-md font-semibold text-sky-700"
-              >
-                User Name
-              </label>
-              <input
+              <TextInput
+                label='username'
                 value={username}
-                type="email"
+                type="text"
                 onChange={(e) => setUsername(e.target.value)}
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-sky-400 focus:ring-sky-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                error={errors.username}
+                onFocus={() =>
+                  setErrors({ ...errors, username: null })
+                }
               />
             </div>
             <div className="mb-2">
-              <label
-
-                for="password"
-                className="block text-md font-semibold text-sky-700"
-              >
-                Password
-              </label>
-              <input
+              <TextInput
+                label="password"
                 value={password}
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-sky-400 focus:ring-sky-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                error={errors.password}
+                onFocus={() =>
+                  setErrors({ ...errors, password: null })
+                }
               />
             </div>
 

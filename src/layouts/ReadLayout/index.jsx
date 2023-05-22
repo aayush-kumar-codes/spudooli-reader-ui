@@ -4,7 +4,7 @@ import SideBar from '../../component/Sidebar'
 
 function ReadLayout() {
   return (
-    <div className='flex'>
+    <div className='flex overflow-hidden'>
       <SideBar />
       <Outlet />
     </div>

@@ -7,8 +7,10 @@ import endPoints from '../../../services/endpoints'
 function FeedAdminForm({getRedingUrls}) {
   const [feedData, setFeedData] = useState({})
   const [errors, setErrors] = useState({})
+  const [loading,  setLoading] = useState(false)
 
   const addFeeds = () =>{
+    setLoading(true)
     setErrors({})
     let errors = {}
 
@@ -24,12 +26,18 @@ function FeedAdminForm({getRedingUrls}) {
     
     setErrors(errors);
     if (Object.keys(errors).length > 0) {
+      setLoading(false)
       return;
     }
 
     postData(endPoints.ADD_FEED,(res)=>{
       if(res){
         getRedingUrls()
+        setFeedData({})
+        setLoading(false)
+
+      }else{
+        setLoading(false)
       }
     },feedData)
   }
@@ -74,7 +82,7 @@ function FeedAdminForm({getRedingUrls}) {
           setErrors({ ...errors, websiteurl: null })
         }
       />
-      <Button text="Submit" className="mt-4" onClick={addFeeds} />
+      <Button text={loading ? "Please wait..." :"Submit"} className="mt-4" onClick={addFeeds} />
     </div>
   )
 }

@@ -4,10 +4,12 @@ import { FaRegCircle } from 'react-icons/fa'
 import { MdOutlineUpload, MdOutlineHexagon } from 'react-icons/md'
 import { GiRotaryPhone } from 'react-icons/gi'
 import PostFooter from './PostFooter'
+import moment from 'moment'
 
-function PostCard() {
+function PostCard({feed}) {
+const inputDate = moment(feed?.date_published, 'ddd, DD MMM YYYY HH:mm:ss Z');
+const outputDate = inputDate.format('MMMM D [at] h:mm A');
   return (
-    <div>
       <div className="flex bg-black0.9 p-4">
         <div className="flex-shrink-0">
           <img
@@ -18,27 +20,24 @@ function PostCard() {
         </div>
         <div className='w-full ml-4'>
           <div className="flex justify-between">
-            <p className="text-sm font-semibold text-gray-900">
-              <a href="#" className="hover:underline text-sky-700">
-                Chelsea Hagon
+            <p className="text-sm w-36 font-semibold text-gray-900">
+              <a href={feed?.url} className="hover:underline text-sky-700">
+                {feed?.title}
               </a>
             </p>
-            <p className="text-sm text-gray-500">
-              <a href="#" className="hover:underline text-white">
-                December 9 at 11:43 AM
-              </a>
+            <p className="text-sm text-gray-500 text-white">
+                {outputDate}
             </p>
           </div>
           <div>
             <p className='text-white'>
-              ChatGPT and its generative AI chatbot competitors present both benefits and dangers for cybersecurity.
+              {feed?.content}
             </p>
           </div>
           <div>
             <PostFooter />
           </div>
         </div>
-      </div>
     </div>
   )
 }
