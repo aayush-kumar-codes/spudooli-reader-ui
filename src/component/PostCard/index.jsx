@@ -30,7 +30,7 @@ const outputDate = inputDate.format('MMMM D [at] h:mm A');
             </p>
           </div>
           <div>
-            <p className='text-white'>
+            <p className='text-white break-all'>
               {feed?.content}
             </p>
           </div>

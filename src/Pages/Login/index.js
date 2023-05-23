@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import endPoints from "../../services/endpoints";
 import { api } from "../../services/api";
@@ -6,12 +6,14 @@ import { ACCESS_TOKEN_KEY } from "../../services/constant";
 import { AuthContext } from "../../routes";
 import { useNavigate } from "react-router-dom";
 import TextInput from "../../component/TextInput";
+import { ErrorAlert } from "../../component/Alerts";
 
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+  const [formError, setFormError] = useState('');
   const [isLoading, setLoading] = useState(false)
   const auth = useContext(AuthContext)
   const navigate = useNavigate()
@@ -46,7 +48,7 @@ function Login() {
           return data;
         }
         if (data.error) {
-          alert(data.message)
+          setFormError(data.message)
           setLoading(false)
         }
       })
@@ -56,11 +58,23 @@ function Login() {
       });
   };
 
+  // useEffect(() => {
+  //   if (formError) {
+  //     setTimeout(() => {
+  //       setFormError("")
+  //     }, 3000)
+  //   }
+  // }, [formError])
+
+
 
   return (
     <>
       <div className="flex flex-col justify-center overflow-hidden w-10/12 m-auto mt-24">
         <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
+          {formError && <div className="mb-4">
+            <ErrorAlert error={formError} />
+          </div>}
           <h1 className="text-3xl font-semibold text-center text-sky-700">
             Sign in
           </h1>
@@ -73,7 +87,8 @@ function Login() {
                 onChange={(e) => setUsername(e.target.value)}
                 error={errors.username}
                 onFocus={() =>
-                  setErrors({ ...errors, username: null })
+                  {setErrors({ ...errors, username: null })
+                  setFormError('')}
                 }
               />
             </div>
@@ -85,7 +100,8 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 error={errors.password}
                 onFocus={() =>
-                  setErrors({ ...errors, password: null })
+                  {setErrors({ ...errors, password: null })
+                  setFormError('')}
                 }
               />
             </div>
@@ -100,6 +116,7 @@ function Login() {
 
         </div>
       </div>
+
     </>
   );
 }

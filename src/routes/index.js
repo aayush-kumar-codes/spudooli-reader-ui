@@ -26,7 +26,7 @@ function AllRoutes() {
   }, [access_token]);
 
   return (
-    <AuthContext.Provider value={{isLogin , setIsLogin}}>
+    <AuthContext.Provider value={{ isLogin, setIsLogin }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<OnBoardingLayout />}>
@@ -35,7 +35,7 @@ function AllRoutes() {
             <Route path="readingpage" element={<Readingpage />} />
             <Route path="feed-admin" element={<PrivatePage><FeedAdmin /></PrivatePage>} />
             <Route path="read" element={<PrivatePage><ReadLayout /></PrivatePage>}>
-            <Route index element={<Read />} />
+              <Route index element={<Read />} />
             </Route>
           </Route>
         </Routes>
