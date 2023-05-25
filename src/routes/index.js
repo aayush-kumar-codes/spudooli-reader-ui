@@ -1,7 +1,6 @@
 
 import { createContext, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "../component/Navbar";
 import About from "../Pages/About";
 import FeedAdmin from "../Pages/FeedAdmin";
 import LoginPage from "../Pages/Login";
@@ -30,9 +29,9 @@ function AllRoutes() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<OnBoardingLayout />}>
-            <Route index element={<LoginPage />} />
+            <Route index element={<Readingpage />} />
+            <Route path="login" element={<LoginPage />} />
             <Route path="about" element={<About />} />
-            <Route path="readingpage" element={<Readingpage />} />
             <Route path="feed-admin" element={<PrivatePage><FeedAdmin /></PrivatePage>} />
             <Route path="read" element={<PrivatePage><ReadLayout /></PrivatePage>}>
               <Route index element={<Read />} />

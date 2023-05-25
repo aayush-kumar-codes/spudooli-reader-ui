@@ -4,7 +4,7 @@ import endPoints from "../../services/endpoints";
 import { api } from "../../services/api";
 import { ACCESS_TOKEN_KEY } from "../../services/constant";
 import { AuthContext } from "../../routes";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import TextInput from "../../component/TextInput";
 import { ErrorAlert } from "../../component/Alerts";
 
@@ -68,7 +68,7 @@ function Login() {
 
 
 
-  return (
+  if(!localStorage.getItem(ACCESS_TOKEN_KEY)){return (
     <>
       <div className="flex flex-col justify-center overflow-hidden w-10/12 m-auto mt-24">
         <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
@@ -116,8 +116,9 @@ function Login() {
 
         </div>
       </div>
-
     </>
-  );
+  )}else{
+    Navigate({to:'/read'})
+  }
 }
 export default Login;

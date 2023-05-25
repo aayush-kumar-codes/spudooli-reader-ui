@@ -40,8 +40,8 @@ const Navbar = ({ isLogin, setIsLogin }) => {
               About
             </Link>
             <Link activeClassName="text-red-500"
-              className={`mr-5 cursor-pointer ${location.pathname === '/readingpage' ? style.active_tabs_css : style.inactive_tabs_css}`}
-              to="/readingpage">
+              className={`mr-5 cursor-pointer ${location.pathname === '/' ? style.active_tabs_css : style.inactive_tabs_css}`}
+              to="/">
               Reading List
             </Link>
 
@@ -49,10 +49,10 @@ const Navbar = ({ isLogin, setIsLogin }) => {
               <button className="text-white border-2 border-gray-200 bg-sky-700 px-10 py-2 rounded" onClick={() => {
                 localStorage.removeItem(ACCESS_TOKEN_KEY)
                 setIsLogin(false)
-                navigate('/')
+                navigate('login')
               }
               }>Logout</button>
-              : <button className="text-white border-2 border-gray-200 bg-sky-700 px-10 py-2 rounded" onClick={() => navigate('/')}>Login</button>}
+              : <button className="text-white border-2 border-gray-200 bg-sky-700 px-10 py-2 rounded" onClick={() => navigate('login')}>Login</button>}
           </nav>
         </div>
       </header >
